@@ -1,6 +1,8 @@
 class PrototypesController < ApplicationController
   def index
-    @prototypes = Prototype.all
+    if user_signed_in?
+      @prototypes = Prototype.all
+    end
   end
 
   def new
@@ -16,6 +18,10 @@ class PrototypesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @prototype = Prototype.find(params[:id])
   end
 
   private
