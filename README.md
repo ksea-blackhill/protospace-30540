@@ -16,7 +16,7 @@ has_many : comments
 ## prototypes テーブル
 
 |   column   |  Type       | Option      |
-|----------------------------------- |
+|--------------------------------------- |
 | title      |  string     | null: false |
 | catch_copy |  text       | null: false |
 | concept    |  text       | null: false |
