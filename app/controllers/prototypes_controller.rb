@@ -1,8 +1,10 @@
 class PrototypesController < ApplicationController
+  before_action :authenticate_user!, expect: [:index, :show]
+
   def index
-    if user_signed_in?
+    #if user_signed_in?
       @prototypes = Prototype.all
-    end
+    #end
   end
 
   def new
@@ -28,20 +30,23 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
+    unless current_user == @prototype.user
+      redirect_to root_path
+    end
   end
 
   def update
     prototype = Prototype.find(params[:id])
     if prototype.update(prototype_params)
-      redirect_to prototype_path
+      redirect_to prototype_path(@prototype)
     else
       render :edit
     end
   end
 
   def destroy
-    @prototype = Prototype.find(params[:id])
-    @prototype.destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
     redirect_to root_path
   end
 
